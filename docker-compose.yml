@@ -1,0 +1,34 @@
+version: '3'
+services:
+  db:
+    build:
+      context: .
+      dockerfile: ./mysql/Dockerfile
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci --skip-character-set-client-handshake
+  php:
+    build:
+      context: .
+      dockerfile: ./php/Dockerfile
+    volumes:
+      - .:/myapp
+    depends_on:
+      - db
+  server:
+    build:
+      context: .
+      dockerfile: ./apache/Dockerfile
+    ports:
+      - 8080:8080
+    volumes:
+      # -public-data
+      # -tmp-data
+    depends_on:
+      - php
+
+volumes:
+  mysql_data:
+    driver: 'local'
