@@ -1,4 +1,4 @@
-version: '3'
+version: '2'
 services:
   db:
     build:
@@ -14,7 +14,7 @@ services:
       context: .
       dockerfile: ./php/Dockerfile
     volumes:
-      - .:/myapp
+      - .:/laradock_lite
     depends_on:
       - db
   server:
@@ -23,9 +23,6 @@ services:
       dockerfile: ./apache/Dockerfile
     ports:
       - 8080:8080
-    volumes:
-      # -public-data
-      # -tmp-data
     depends_on:
       - php
 
