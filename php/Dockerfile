@@ -15,6 +15,6 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 
 ENV PATH $PATH:/composer/vendor/bin
 
-WORKDIR /var/www
+WORKDIR /laradock_lite
 
 RUN composer global require "laravel/installer"
